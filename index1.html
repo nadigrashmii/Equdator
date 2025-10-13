@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Predict. Understand. Act</title>
+  <!-- Load Tailwind CSS for modern styling and responsive utilities -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Load Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* * Custom CSS for the AI-Powered Landing Page 
+     * All styles from the external 'style.css' are now here.
+     * We're using Inter font and ensuring rounded corners on key elements.
+     */
+    
+    /* Configuration for Inter font and global rounding */
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      /* Using 'Inter' as requested */
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Set the background gradient for the body */
+    body {
+      background: linear-gradient(135deg, #0f172a, #0d9488);
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 8%; /* Reduced padding slightly for better mobile feel */
+      background: rgba(15, 23, 42, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      /* Applying subtle rounding to the bottom of the sticky bar */
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    /* Nav Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links ul li a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s;
+      padding: 0.5rem 0; /* Add padding for better touch targets */
+    }
+
+    .nav-links ul li a:hover {
+      color: #38bdf8;
+    }
+
+    .btn {
+      background: #22c55e;
+      color: #fff;
+      padding: 0.6rem 1.4rem;
+      border-radius: 9999px; /* Pill shape */
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
+      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+    }
+
+    .btn:hover {
+      background: #16a34a;
+      transform: translateY(-2px);
+    }
+
+    /* Hamburger Toggle */
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 5rem 8%;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin-bottom: 0.5rem;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      color: #cbd5e1;
+      margin-bottom: 3rem;
+    }
+
+    .hero-img {
+      width: 100%;
+      max-width: 900px;
+      height: 250px;
+      background: #334155;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      /* Placeholder for a cool AI visualization */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: #64748b;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-img::after {
+        content: 'Data Flow Visualization Placeholder';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: repeating-linear-gradient(
+            45deg,
+            #1e293b,
+            #1e293b 10px,
+            #334155 10px,
+            #334155 20px
+        );
+        opacity: 0.2;
+    }
+
+
+    /* Content Sections */
+    .content {
+      padding: 4rem 8%;
+    }
+
+    .block {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      margin-bottom: 5rem;
+      background: #1e293b66; /* Semi-transparent background for separation */
+      padding: 2.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(56, 189, 248, 0.1);
+      transition: transform 0.3s;
+    }
+    
+    .block:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .block.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .img-box {
+      flex: 1;
+      min-width: 250px;
+      height: 200px;
+      background: #334155;
+      border-radius: 16px;
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+      border: 3px solid #0d9488;
+    }
+
+    .text {
+      flex: 2;
+    }
+
+    .text h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #38bdf8;
+    }
+
+    /* Reviews */
+    .reviews {
+      padding: 3rem 8%;
+      text-align: center;
+    }
+    
+    .reviews h2 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        color: #fff;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .review-card {
+      background: #1e293b;
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .review-card p:first-child { /* Stars */
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .review-card h3 {
+      margin: 0.5rem 0;
+      color: #22c55e;
+      font-size: 1.25rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #0f172a;
+      padding: 4rem 8%;
+      margin-top: 3rem;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 1.5rem;
+    }
+
+    .socials a {
+      color: #cbd5e1;
+      margin: 0 1rem;
+      font-size: 1.5rem;
+      transition: color 0.3s, transform 0.2s;
+    }
+
+    .socials a:hover {
+      color: #38bdf8;
+      transform: scale(1.1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+
+    .footer-links h4 {
+      margin-bottom: 1.2rem;
+      color: #38bdf8;
+      font-size: 1.1rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links ul li {
+      margin-bottom: 0.7rem;
+    }
+
+    .footer-links ul li a {
+      color: #cbd5e1;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links ul li a:hover {
+      color: #fff;
+    }
+
+    /* ------------------- */
+    /* RESPONSIVE STYLES   */
+    /* ------------------- */
+
+    @media (max-width: 900px) {
+      .block {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+        gap: 1.5rem;
+      }
+      .block.reverse {
+        flex-direction: column;
+      }
+      .img-box {
+        width: 100%;
+        min-height: 180px;
+      }
+      .block:hover {
+          transform: none;
+          box-shadow: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem 6%;
+      }
+        
+      /* Show the hamburger menu */
+      .menu-toggle {
+        display: block;
+      }
+
+      /* Hide the desktop nav links */
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 72px; /* Adjusted based on navbar padding */
+        right: 6%;
+        background: #1e293b;
+        flex-direction: column;
+        width: 90%; /* Take up most of the width */
+        max-width: 300px;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+      }
+
+      /* When 'active' class is added by JS, show the menu */
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links ul {
+        flex-direction: column;
+        gap: 1.25rem;
+        margin-bottom: 1.5rem;
+        width: 100%;
+      }
+      
+      .nav-links .btn {
+          width: 100%;
+          text-align: center;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+      }
+      
+      .footer-links h4 {
+          margin-bottom: 0.5rem;
+      }
+      
+      .footer-links ul li a {
+          font-size: 0.95rem;
+      }
+    }
+    
+    /* Ensure padding is reduced on small screens */
+    @media (max-width: 500px) {
+        .hero, .content, .reviews, footer {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+        
+        .hero h1 {
+            font-size: 2rem;
+        }
+    }
+
+
+    /* AI Animated Background (Particle System) */
+    .ai-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* Adjusting gradient for a deeper look */
+      background: radial-gradient(circle at center, #0f172a 10%, #0d9488 60%, #0f172a 100%);
+      background-size: 200% 200%;
+      animation: gradientShift 12s ease infinite;
+      z-index: -2;
+      overflow: hidden;
+    }
+
+    /* Gradient Animation */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating Particles */
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #38bdf8;
+      border-radius: 50%;
+      box-shadow: 0 0 15px #38bdf8, 0 0 30px #38bdf8;
+      animation: float 10s linear infinite;
+      opacity: 0.7;
+    }
+
+    /* Randomized particles */
+    .particle:nth-child(1) { top: 20%; left: 15%; animation-duration: 12s; width: 10px; height: 10px; }
+    .particle:nth-child(2) { top: 60%; left: 25%; animation-duration: 15s; width: 6px; height: 6px; }
+    .particle:nth-child(3) { top: 40%; left: 75%; animation-duration: 18s; width: 12px; height: 12px; }
+    .particle:nth-child(4) { top: 80%; left: 50%; animation-duration: 20s; width: 7px; height: 7px; }
+    .particle:nth-child(5) { top: 10%; left: 85%; animation-duration: 14s; width: 9px; height: 9px; }
+
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.5; }
+      50% { transform: translateY(-70px) translateX(30px) scale(1.2); opacity: 1; }
+      100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.5; }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- AI Animated Background -->
+  <div class="ai-background">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">EQUDATOR</div>
+
+    <!-- Hamburger Menu Toggle -->
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <nav class="nav-links" id="nav-links">
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="index1.html">Features</a></li>
+        <li><a href="index1.html">Pricing</a></li>
+        <li><a href="index1.html">Blog</a></li>
+        <li><a href="index1.html">Contact</a></li>
+      </ul>
+      <a href="auth.html" class="btn">Get Started</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <h1>Predict. Understand. Act.</h1>
+    <p>Empowering your business with foresight and clarity.</p>
+    <div class="hero-img"></div>
+  </section>
+
+  <!-- Content Blocks / Features -->
+  <section class="content" id="features">
+    <div class="block">
+      <div class="img-box"></div>
+      <div class="text">
+        <h2>Predictive Analytics</h2>
+        <p>Harness the power of machine learning to forecast future trends, anticipate customer behavior, and stay ahead of the curve. Our models provide high-accuracy predictions to minimize risk and maximize opportunity.</p>
+      </div>
+    </div>
+
+    <div class="block reverse">
+      <div class="text">
+        <h2>Unmatched Clarity</h2>
+        <p>Don't just get data; get intelligence. Our system provides clear, actionable insights in plain language, making complex data accessible to everyone in your organization, from analysts to executives.</p>
+      </div>
+      <div class="img-box"></div>
+    </div>
+
+    <div class="block">
+      <div class="img-box"></div>
+      <div class="text">
+        <h2>Automated Action</h2>
+        <p>Seamlessly integrate predictions into your workflow. Automatically trigger campaigns, alerts, or system adjustments based on real-time insights, turning foresight into immediate, effective action.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="reviews" id="reviews">
+    <h2>What Our Clients Say</h2>
+    <div class="review-grid">
+      <div class="review-card">
+        <p>⭐️⭐️⭐️⭐️⭐️</p>
+        <h3>Revolutionary Insight</h3>
+        <p>The predictive models have completely transformed our inventory management. We cut forecasting errors by over 30% in the first quarter alone.</p>
+      </div>
+      <div class="review-card">
+        <p>⭐️⭐️⭐️⭐️⭐️</p>
+        <h3>Simple & Powerful</h3>
+        <p>Finally, an analytics platform that doesn't require a Ph.D. to understand. The visual clarity is a game-changer for our marketing team.</p>
+      </div>
+      <div class="review-card">
+        <p>⭐️⭐️⭐️⭐️⭐️</p>
+        <h3>Immediate ROI</h3>
+        <p>We saw an immediate return on investment thanks to the automated action triggers. It pays for itself by preventing costly mistakes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="footer-top">
+      <div class="socials">
+        <a href="#" aria-label="X Twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Analytics</a></li>
+          <li><a href="#">Automation</a></li>
+          <li><a href="#">Integrations</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Docs</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script for mobile menu functionality -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav-links');
+    
+    // Function to toggle the 'active' class on click
+    const toggleMenu = () => {
+      nav.classList.toggle('active');
+    };
+    
+    // Close menu when a link is clicked (useful for mobile navigation)
+    const closeMenu = () => {
+        if (nav.classList.contains('active')) {
+            nav.classList.remove('active');
+        }
+    };
+
+    toggle.addEventListener('click', toggleMenu);
+    
+    // Add listeners to all navigation links inside the menu
+    const navLinks = nav.querySelectorAll('a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+  </script>
+</body>
+</html>
